@@ -84,16 +84,16 @@
 <meta property="og:site_name" content="Hugh&#39;s Blog">
 <meta property="og:description" content="图像中文描述问题融合了计算机视觉与自然语言处理两个方向，对图片输出一句话的描述。描述句子要求符合自然语言习惯，点明图像中的重要信息，涵盖主要人物、场景、动作等内容。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://github.com/HughChi/Image-Caption/raw/master/images/dataset.png">
-<meta property="og:image" content="https://github.com/HughChi/Image-Caption/raw/master/images/net.png">
+<meta property="og:image" content="http://yoursite.com/images/imagecaptiondataset.png">
 <meta property="og:image" content="http://yoursite.com/images/imagecaptionmodel.png">
 <meta property="og:image" content="http://yoursite.com/images/imagecaption2048.png">
+<meta property="og:image" content="http://yoursite.com/images/imagecaptionnet.png">
 <meta property="og:image" content="http://yoursite.com/images/imagecaptionvocab.png">
-<meta property="og:updated_time" content="2019-04-13T07:57:46.509Z">
+<meta property="og:updated_time" content="2019-04-13T08:01:39.061Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图像中文描述">
 <meta name="twitter:description" content="图像中文描述问题融合了计算机视觉与自然语言处理两个方向，对图片输出一句话的描述。描述句子要求符合自然语言习惯，点明图像中的重要信息，涵盖主要人物、场景、动作等内容。">
-<meta name="twitter:image" content="https://github.com/HughChi/Image-Caption/raw/master/images/dataset.png">
+<meta name="twitter:image" content="http://yoursite.com/images/imagecaptiondataset.png">
 
 
 
@@ -305,14 +305,13 @@
       
         <p>图像中文描述问题融合了计算机视觉与自然语言处理两个方向，对图片输出一句话的描述。<br>描述句子要求符合自然语言习惯，点明图像中的重要信息，涵盖主要人物、场景、动作等内容。</p>
 <a id="more"></a>
-<h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p><img src="https://github.com/HughChi/Image-Caption/raw/master/images/dataset.png" width="600"></p>
+<h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p><img src="/images/imagecaptiondataset.png" alt></p>
 <p>数据来自<a href="https://challenger.ai/competition/caption" target="_blank" rel="noopener">2017 AI Challenger</a><br>数据集对给定的每一张图片有五句话的中文描述。数据集包含30万张图片，150万句中文描述。<br>训练集：210,000 张<br>验证集：30,000 张<br>测试集 A：30,000 张<br>测试集 B：30,000 张<br><a href="https://challenger.ai/dataset/caption" target="_blank" rel="noopener">数据集下载</a>，放在data目录  </p>
-<h2 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h2><p><img src="https://github.com/HughChi/Image-Caption/raw/master/images/net.png" width="600"></p>
-<p><img src="/images/imagecaptionmodel.png" alt></p>
+<h2 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h2><p><img src="/images/imagecaptionmodel.png" alt></p>
 <p>模型的输入数据由两个元素的列表构成，一个是文本特征，一个是图像特征。<br>输入的文本数据是40维向量，经过Embedding词嵌入层，文本被映射到128维向量空间，Embedding层的作用是将稀疏的One-hot向量编码成维数较低的矩阵，经过LSTM层与TimeDistributed包装过的Dense层，结果为（40，128）的向量。<br>输入的图像数据是ResNet50提取出的2048维特征向量，经过Embedding层和RepeatVector扩充维度都，得到（1，128）的向量。</p>
 <p><img src="/images/imagecaption2048.png" alt></p>
 <p>将两种特征通过Concatenate函数融合成（41，128）维特征，经过第一个Dropout层防止过拟合，第一层LSTM网络，第二个Dropout层，第二个LSTM网络，第三个Dropout层，最后通过1024*17628的全连接层输出17628维数据，维数对应预处理数据集得到的词库大小。  </p>
-<h2 id="训练过程"><a href="#训练过程" class="headerlink" title="训练过程"></a>训练过程</h2><p>模型通过backward.py文件计算反向传播并训练<br>使用Adam优化器，学习率为0.00005<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adam = keras.optimizers.Adam(lr=5e-5)</span><br></pre></td></tr></table></figure></p>
+<h2 id="训练过程"><a href="#训练过程" class="headerlink" title="训练过程"></a>训练过程</h2><p><img src="/images/imagecaptionnet.png" alt><br>模型通过backward.py文件计算反向传播并训练<br>使用Adam优化器，学习率为0.00005<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adam = keras.optimizers.Adam(lr=5e-5)</span><br></pre></td></tr></table></figure></p>
 <p>损失函数为categorical_crossentropy多分类对数损失<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new_model.compile(optimizer=adam, loss=<span class="string">'categorical_crossentropy'</span>, metrics=[<span class="string">'accuracy'</span>])</span><br></pre></td></tr></table></figure></p>
 <p>训练过程中使用TensorBoard可视化训练曲线<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">    tensor_board = keras.callbacks.TensorBoard(log_dir=<span class="string">'./logs'</span>, histogram_freq=0, write_graph=True, write_images=True)</span><br><span class="line">```    </span><br><span class="line">使用以下方法优化模型训练过程:</span><br><span class="line">使用ModelCheckpoint保存一个轮次中效果表现最好的模型训练模型</span><br><span class="line">```bash</span><br><span class="line">    model_checkpoint = ModelCheckpoint(model_names, monitor=<span class="string">'val_loss'</span>, verbose=1, save_best_only=True)</span><br></pre></td></tr></table></figure></p>
 <p>使用EarlyStopping函数防止过拟合<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">early_stop = EarlyStopping(<span class="string">'val_loss'</span>, patience=patience)</span><br></pre></td></tr></table></figure></p>
