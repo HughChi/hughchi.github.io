@@ -86,7 +86,10 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/HughChi/Image-Caption/raw/master/images/dataset.png">
 <meta property="og:image" content="https://github.com/HughChi/Image-Caption/raw/master/images/net.png">
-<meta property="og:updated_time" content="2019-04-12T16:24:20.998Z">
+<meta property="og:image" content="http://yoursite.com/images/imagecaptionmodel.png">
+<meta property="og:image" content="http://yoursite.com/images/imagecaption2048.png">
+<meta property="og:image" content="http://yoursite.com/images/imagecaptionvocab.png">
+<meta property="og:updated_time" content="2019-04-13T07:57:46.509Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图像中文描述">
 <meta name="twitter:description" content="图像中文描述问题融合了计算机视觉与自然语言处理两个方向，对图片输出一句话的描述。描述句子要求符合自然语言习惯，点明图像中的重要信息，涵盖主要人物、场景、动作等内容。">
@@ -305,6 +308,21 @@
 <h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p><img src="https://github.com/HughChi/Image-Caption/raw/master/images/dataset.png" width="600"></p>
 <p>数据来自<a href="https://challenger.ai/competition/caption" target="_blank" rel="noopener">2017 AI Challenger</a><br>数据集对给定的每一张图片有五句话的中文描述。数据集包含30万张图片，150万句中文描述。<br>训练集：210,000 张<br>验证集：30,000 张<br>测试集 A：30,000 张<br>测试集 B：30,000 张<br><a href="https://challenger.ai/dataset/caption" target="_blank" rel="noopener">数据集下载</a>，放在data目录  </p>
 <h2 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h2><p><img src="https://github.com/HughChi/Image-Caption/raw/master/images/net.png" width="600"></p>
+<p><img src="/images/imagecaptionmodel.png" alt></p>
+<p>模型的输入数据由两个元素的列表构成，一个是文本特征，一个是图像特征。<br>输入的文本数据是40维向量，经过Embedding词嵌入层，文本被映射到128维向量空间，Embedding层的作用是将稀疏的One-hot向量编码成维数较低的矩阵，经过LSTM层与TimeDistributed包装过的Dense层，结果为（40，128）的向量。<br>输入的图像数据是ResNet50提取出的2048维特征向量，经过Embedding层和RepeatVector扩充维度都，得到（1，128）的向量。</p>
+<p><img src="/images/imagecaption2048.png" alt></p>
+<p>将两种特征通过Concatenate函数融合成（41，128）维特征，经过第一个Dropout层防止过拟合，第一层LSTM网络，第二个Dropout层，第二个LSTM网络，第三个Dropout层，最后通过1024*17628的全连接层输出17628维数据，维数对应预处理数据集得到的词库大小。  </p>
+<h2 id="训练过程"><a href="#训练过程" class="headerlink" title="训练过程"></a>训练过程</h2><p>模型通过backward.py文件计算反向传播并训练<br>使用Adam优化器，学习率为0.00005<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adam = keras.optimizers.Adam(lr=5e-5)</span><br></pre></td></tr></table></figure></p>
+<p>损失函数为categorical_crossentropy多分类对数损失<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new_model.compile(optimizer=adam, loss=<span class="string">'categorical_crossentropy'</span>, metrics=[<span class="string">'accuracy'</span>])</span><br></pre></td></tr></table></figure></p>
+<p>训练过程中使用TensorBoard可视化训练曲线<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">    tensor_board = keras.callbacks.TensorBoard(log_dir=<span class="string">'./logs'</span>, histogram_freq=0, write_graph=True, write_images=True)</span><br><span class="line">```    </span><br><span class="line">使用以下方法优化模型训练过程:</span><br><span class="line">使用ModelCheckpoint保存一个轮次中效果表现最好的模型训练模型</span><br><span class="line">```bash</span><br><span class="line">    model_checkpoint = ModelCheckpoint(model_names, monitor=<span class="string">'val_loss'</span>, verbose=1, save_best_only=True)</span><br></pre></td></tr></table></figure></p>
+<p>使用EarlyStopping函数防止过拟合<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">early_stop = EarlyStopping(<span class="string">'val_loss'</span>, patience=patience)</span><br></pre></td></tr></table></figure></p>
+<p>使用ReduceLROnPlateau函数调整学习率，当评价指标不在提升时，减少的学习率为lr = lr*factor<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reduce_lr = ReduceLROnPlateau(<span class="string">'val_loss'</span>, factor=0.1, patience=int(patience / 5), verbose=1)</span><br></pre></td></tr></table></figure></p>
+<p>模型训练时喂入的数据通过data_generator文件按批次生成，输入的x是图像的2048位特征和经过向量化处理的句子，期望得到的标签y是这句话的下一个字，如下图</p>
+<p><img src="/images/imagecaptionvocab.png" alt></p>
+<h2 id="Seq2Seq模型"><a href="#Seq2Seq模型" class="headerlink" title="Seq2Seq模型"></a>Seq2Seq模型</h2><p>所有输出端，都以一个通用的<start>标记开头，以<end>标记结尾，这两个标记也视为一个词/字；将<start>输入decoder，然后得到隐藏层向量，将这个向量与encoder的输出混合，然后送入一个分类器，分类器的结果应当输出P，将P输入decoder，得到新的隐藏层向量，再次与encoder的输出混合，送入分类器，分类器应输出Q，依此递归，直到分类器的结果输出<end>。这就是一个基本的seq2seq模型的解码过程，在解码的过程中，将每步的解码结果送入到下一步中去，直到输出<end>位置。</end></end></start></end></start></p>
+<h2 id="Beam-Search"><a href="#Beam-Search" class="headerlink" title="Beam Search"></a>Beam Search</h2><p>Beam Search（集束搜索）是一种启发式图搜索算法，通常用在图的解空间比较大的情况下，为了减少搜索所占用的空间和时间，在每一步深度扩展的时候，剪掉一些质量比较差的结点，保留下一些质量较高的结点。这样减少了空间消耗，并提高了时间效率，但缺点就是有可能存在潜在的最佳方案被丢弃。</p>
+<h2 id="评价指标"><a href="#评价指标" class="headerlink" title="评价指标"></a>评价指标</h2><p>BLEU是一种通过计算候选译文和参考译文中n 元词共同出现的程度，来衡量候选句子与参考句子相似度的机器翻译度量方法。<br>ROUGE是用来评价文本摘要算法的自动评价标准集，本次图像中文描述比赛主要采用其中的ROUGE_L作为评价标准。ROUGEL 是基于LCS（Longest Common Subsequence）的一种测量方法。LCS是序列X 和序列Y 的最大长度公共子序列的统称。<br>METEOR 是用来评价机器翻译输出的标准。该方法将候选语句和参考语句的词进行逐一匹配，METEOR需要预先给定一组类似于WordNet的同义词库，通过最小化对应语句中连续有序的块来得出。METEOR的计算为对应候选语句和参考语句之间的准确率和召回率的调和平均。<br>CIDEr 通过对每个n元组进行Term Frequency Inverse Document Frequency (TF-IDF) 权重计算，来衡量图像描述的一致性。</p>
+<h2 id="Attention注意力机制"><a href="#Attention注意力机制" class="headerlink" title="Attention注意力机制"></a>Attention注意力机制</h2><p>Reference Paper: Show, Attend and Tell: Neural Image Caption Generation with Visual Attention <a href="https://arxiv.org/pdf/1502.03044v3" target="_blank" rel="noopener">https://arxiv.org/pdf/1502.03044v3</a></p>
 
       
     </div>
@@ -461,7 +479,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据集"><span class="nav-number">1.</span> <span class="nav-text">数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型结构"><span class="nav-number">2.</span> <span class="nav-text">模型结构</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据集"><span class="nav-number">1.</span> <span class="nav-text">数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型结构"><span class="nav-number">2.</span> <span class="nav-text">模型结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练过程"><span class="nav-number">3.</span> <span class="nav-text">训练过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Seq2Seq模型"><span class="nav-number">4.</span> <span class="nav-text">Seq2Seq模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Beam-Search"><span class="nav-number">5.</span> <span class="nav-text">Beam Search</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评价指标"><span class="nav-number">6.</span> <span class="nav-text">评价指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Attention注意力机制"><span class="nav-number">7.</span> <span class="nav-text">Attention注意力机制</span></a></li></ol></div>
             
 
           </div>
