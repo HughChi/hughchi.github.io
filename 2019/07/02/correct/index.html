@@ -77,17 +77,17 @@
 
 
 
-<meta name="description" content="一、语言模型应用    通过计算给定词组成的句子的概率，判断句子是否符合语言表达习惯场景1.拼写纠错2.对话系统3.机器翻译探索方向1.N-gram语言模型 （已完成）2.BiLSTM字级语言模型 （已完成）3.Bert-Masked语言模型（已实现masked词预测和ppl打分）待解决问题评价语言模型（通过ppl，ppl越低句子越通顺）思路：构建音似、形似数据集，对原句和错句ppl打分，统计原句">
+<meta name="description" content="一、语言模型应用    通过计算给定词组成的句子的概率，判断句子是否符合语言表达习惯场景1.拼写纠错2.对话系统3.机器翻译">
 <meta property="og:type" content="article">
 <meta property="og:title" content="文本纠错">
 <meta property="og:url" content="http://yoursite.com/2019/07/02/correct/index.html">
 <meta property="og:site_name" content="Hugh&#39;s Blog">
-<meta property="og:description" content="一、语言模型应用    通过计算给定词组成的句子的概率，判断句子是否符合语言表达习惯场景1.拼写纠错2.对话系统3.机器翻译探索方向1.N-gram语言模型 （已完成）2.BiLSTM字级语言模型 （已完成）3.Bert-Masked语言模型（已实现masked词预测和ppl打分）待解决问题评价语言模型（通过ppl，ppl越低句子越通顺）思路：构建音似、形似数据集，对原句和错句ppl打分，统计原句">
+<meta property="og:description" content="一、语言模型应用    通过计算给定词组成的句子的概率，判断句子是否符合语言表达习惯场景1.拼写纠错2.对话系统3.机器翻译">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-02T07:46:37.064Z">
+<meta property="og:updated_time" content="2019-07-02T07:47:56.925Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文本纠错">
-<meta name="twitter:description" content="一、语言模型应用    通过计算给定词组成的句子的概率，判断句子是否符合语言表达习惯场景1.拼写纠错2.对话系统3.机器翻译探索方向1.N-gram语言模型 （已完成）2.BiLSTM字级语言模型 （已完成）3.Bert-Masked语言模型（已实现masked词预测和ppl打分）待解决问题评价语言模型（通过ppl，ppl越低句子越通顺）思路：构建音似、形似数据集，对原句和错句ppl打分，统计原句">
+<meta name="twitter:description" content="一、语言模型应用    通过计算给定词组成的句子的概率，判断句子是否符合语言表达习惯场景1.拼写纠错2.对话系统3.机器翻译">
 
 
 
@@ -297,7 +297,7 @@
       
 
       
-        <p>一、语言模型<br>应用    通过计算给定词组成的句子的概率，判断句子是否符合语言表达习惯<br>场景<br>1.拼写纠错<br>2.对话系统<br>3.机器翻译<br>探索方向<br>1.N-gram语言模型 （已完成）<br>2.BiLSTM字级语言模型 （已完成）<br>3.Bert-Masked语言模型（已实现masked词预测和ppl打分）<br>待解决问题<br>评价语言模型（通过ppl，ppl越低句子越通顺）<br>思路：构建音似、形似数据集，对原句和错句ppl打分，<br>统计原句&lt;错句占比，相当于统计判断流畅度的准确率</p>
+        <p>一、语言模型<br>应用    通过计算给定词组成的句子的概率，判断句子是否符合语言表达习惯<br>场景<br>1.拼写纠错<br>2.对话系统<br>3.机器翻译<br><a id="more"></a><br>探索方向<br>1.N-gram语言模型 （已完成）<br>2.BiLSTM字级语言模型 （已完成）<br>3.Bert-Masked语言模型（已实现masked词预测和ppl打分）<br>待解决问题<br>评价语言模型（通过ppl，ppl越低句子越通顺）<br>思路：构建音似、形似数据集，对原句和错句ppl打分，<br>统计原句&lt;错句占比，相当于统计判断流畅度的准确率</p>
 <p>二、文本纠错<br>场景：1.写作辅助   2.搜索纠错    3.对话语音识别纠错<br>思路：从用户行为出发、从文章角度出发（语法、句子、词语、字）<br>1.文本纠错流程<br>1.1 错误检测<br>实现方法：<br>1.基于深度学习：二分类任务<br>2.基于规则和语言模型：（1）字粒度通过语言模型计算似然概率值，根据设定的阈值筛选出概率较低的词（2）词粒度分词，词语不在词典为错误词<br>1.2 错误定位（此步骤可与第一步或第三步结合）<br>实现方法：<br>1.基于规则和语言模型：同1.1.2（字粒度、词粒度检测）<br>2.基于深度学习：序列标注任务（BiLSTM-CRF或使用bert标出错误的位置，缺点：训练预料较少）<br>1.3 错误纠正<br>实现方法：<br>生成候选句后，通过语言模型计算ppl，选取ppl最低的句子<br>备选词生成方法：<br>1.基于规则：音似、形似替换（缺点是依赖词库大小）<br>2.基于依存句法提取词语搭配对<br>3.基于语言模型：预测单词序列或预测空缺词（Bert、端到端网络）<br>2.前沿技术分析<br>2.1 2017阿里巴巴技术亮点</p>
 <p>1.引入无监督的语法知识，结合了集成学习等方法<br>2.在bilstm-crf模型的基础上，结合了分词、词性、依存句法等特征，同时将language model等无监督的知识embedding到神经网络<br>3.针对比赛的3个不同level，设计了不同的基于神经网络的snapshot emsembles方法<br>论文地址：<a href="https://www.aclweb.org/anthology/I17-4006" target="_blank" rel="noopener">https://www.aclweb.org/anthology/I17-4006</a><br>2.2 2018哈工大讯飞技术亮点<br>AI实验室NLP平台组 &gt; 语言模型&amp;文本纠错调研 &gt; v2-bf7eee6ebe16e1b13a67d207a0b24b14_r.jpg</p>
 <p>1.语病修正：采取了端到端的神经网络模型与词汇点信息互相结合，将语病位置空出，根据上下文以及语病信息对于该位置正确的词汇进行推测<br>2.序列标注模型BiLSTM-CRF优化：<br>（1）将词向量、统计、先验的语法知识相融合，如汉语语言习惯用法等统计特征，比如“静静的顿河”和“静静地等待”中结构助词“的”和“地”的使用会根据上下文的词性而决定；<br>（2）采用模型内部融合的技术，将多个BiLSTM单模型的输出加权融合，再经过CRF计算最终结果；<br>（3）采用了模型选取、模型排序等外部融合方法，发挥了不同模型的优势。<br>论文地址：<a href="https://www.aclweb.org/anthology/W18-3707" target="_blank" rel="noopener">https://www.aclweb.org/anthology/W18-3707</a><br>2.3 百度技术亮点<br>AI实验室NLP平台组 &gt; 语言模型&amp;文本纠错调研 &gt; 20190201111520367.png<br>AI实验室NLP平台组 &gt; 语言模型&amp;文本纠错调研 &gt; 20190201111538518.png<br>AI实验室NLP平台组 &gt; 语言模型&amp;文本纠错调研 &gt; 20190201111545869.png<br>AI实验室NLP平台组 &gt; 语言模型&amp;文本纠错调研 &gt; 20190201111550437.png<br>AI实验室NLP平台组 &gt; 语言模型&amp;文本纠错调研 &gt; 20190201111557510.png<br>AI实验室NLP平台组 &gt; 语言模型&amp;文本纠错调研 &gt; 20190201111601716.png<br>AI实验室NLP平台组 &gt; 语言模型&amp;文本纠错调研 &gt; 20190201111607559.png<br>AI实验室NLP平台组 &gt; 语言模型&amp;文本纠错调研 &gt; 20190201111613481.png<br>AI实验室NLP平台组 &gt; 语言模型&amp;文本纠错调研 &gt; 20190201111618164.png<br>2.3 QQ音乐<br>基于语义关联的中文查询纠错框架<br>qq music是腾讯公司推出的中文最大的网络音乐平台，每天约6000w左右的搜索量。从一个月的query logs中，随机抽取3w条query，分别抓取baidu网页搜索纠错结果和自身纠错结果， 取两个纠错结果的并集共3.1k，进行人工标注，其中有200条存在关联纠错，作为实验的数据集合。<br>参考地址：<a href="https://cloud.tencent.com/developer/article/1030059" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1030059</a></p>
