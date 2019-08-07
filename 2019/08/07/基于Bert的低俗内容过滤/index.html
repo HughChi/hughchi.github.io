@@ -77,13 +77,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hugh&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="基于Bert的低俗内容过滤1.项目简介在小米AI实验室NLP平台组内容过滤的工作，记录于此，已删去敏感信息，本文介绍基于Bert预训练模型Fine-tuning实现文本分类任务。 2.运行环境1pip install -r requirements.txt Tensorflow&amp;gt;=1.11.0 Python2和Python3均可运行 3.准备数据 train.tsv:训练集，对应do_tra">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于Bert的低俗内容过滤">
+<meta property="og:url" content="http://yoursite.com/2019/08/07/基于Bert的低俗内容过滤/index.html">
 <meta property="og:site_name" content="Hugh&#39;s Blog">
+<meta property="og:description" content="基于Bert的低俗内容过滤1.项目简介在小米AI实验室NLP平台组内容过滤的工作，记录于此，已删去敏感信息，本文介绍基于Bert预训练模型Fine-tuning实现文本分类任务。 2.运行环境1pip install -r requirements.txt Tensorflow&amp;gt;=1.11.0 Python2和Python3均可运行 3.准备数据 train.tsv:训练集，对应do_tra">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-07T08:38:06.128Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hugh&#39;s Blog">
+<meta name="twitter:title" content="基于Bert的低俗内容过滤">
+<meta name="twitter:description" content="基于Bert的低俗内容过滤1.项目简介在小米AI实验室NLP平台组内容过滤的工作，记录于此，已删去敏感信息，本文介绍基于Bert预训练模型Fine-tuning实现文本分类任务。 2.运行环境1pip install -r requirements.txt Tensorflow&amp;gt;=1.11.0 Python2和Python3均可运行 3.准备数据 train.tsv:训练集，对应do_tra">
 
 
 
@@ -113,13 +117,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/07/基于Bert的低俗内容过滤/">
 
 
 
 
 
-  <title>Hugh's Blog</title>
+  <title>基于Bert的低俗内容过滤 | Hugh's Blog</title>
   
 
 
@@ -138,8 +142,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -212,9 +215,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -244,9 +247,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/07/基于Bert的低俗内容过滤/" itemprop="url">基于Bert的低俗内容过滤</a></h1>
+          <h1 class="post-title" itemprop="name headline">基于Bert的低俗内容过滤</h1>
         
 
         <div class="post-meta">
@@ -296,9 +297,7 @@
       
 
       
-        
-          
-            <h1 id="基于Bert的低俗内容过滤"><a href="#基于Bert的低俗内容过滤" class="headerlink" title="基于Bert的低俗内容过滤"></a>基于Bert的低俗内容过滤</h1><h2 id="1-项目简介"><a href="#1-项目简介" class="headerlink" title="1.项目简介"></a>1.项目简介</h2><p>在小米AI实验室NLP平台组内容过滤的工作，记录于此，已删去敏感信息，本文介绍基于Bert预训练模型Fine-tuning实现文本分类任务。</p>
+        <h1 id="基于Bert的低俗内容过滤"><a href="#基于Bert的低俗内容过滤" class="headerlink" title="基于Bert的低俗内容过滤"></a>基于Bert的低俗内容过滤</h1><h2 id="1-项目简介"><a href="#1-项目简介" class="headerlink" title="1.项目简介"></a>1.项目简介</h2><p>在小米AI实验室NLP平台组内容过滤的工作，记录于此，已删去敏感信息，本文介绍基于Bert预训练模型Fine-tuning实现文本分类任务。</p>
 <h2 id="2-运行环境"><a href="#2-运行环境" class="headerlink" title="2.运行环境"></a>2.运行环境</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
 <p>Tensorflow&gt;=1.11.0</p>
 <p>Python2和Python3均可运行</p>
@@ -439,8 +438,6 @@
 <p>使用sklearn计算test.tsv的评价指标</p>
 <h2 id="7-模型服务部署"><a href="#7-模型服务部署" class="headerlink" title="7.模型服务部署"></a>7.模型服务部署</h2><p>参考 <a href="https://www.tensorflow.org/tfx/guide/serving" target="_blank" rel="noopener">https://www.tensorflow.org/tfx/guide/serving</a></p>
 
-          
-        
       
     </div>
     
@@ -457,136 +454,28 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/correct/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ji Hongxu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hugh's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/02/correct/" itemprop="url">文本纠错</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T15:44:35+08:00">
-                2019-07-02
-              </time>
+              <a href="/2019/07/02/correct/" rel="next" title="文本纠错">
+                <i class="fa fa-chevron-left"></i> 文本纠错
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>一、语言模型<br>应用    通过计算给定词组成的句子的概率，判断句子是否符合语言表达习惯<br>场景<br>1.拼写纠错<br>2.对话系统<br>3.机器翻译</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/02/correct/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -596,383 +485,11 @@
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/tencent-pcg/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ji Hongxu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hugh's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/02/tencent-pcg/" itemprop="url">腾讯信息流平台学习笔记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-02T15:42:53+08:00">
-                2019-07-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>#兴趣点图谱，信息流推荐<br>门户时代：手动文本分类<br>搜索时代：关键词计算，倒排索引，TFIDF<br>智能时代：知识图谱，解决歧义问题，实体消歧</p>
-<p>#个性化推荐<br>基于好友的推荐：微信看一看<br>基于用户的推荐：构建用户画像，文章描述内容，通过算法进行匹配（NLP技术）</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/02/tencent-pcg/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/12/图像中文描述/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ji Hongxu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hugh's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/12/图像中文描述/" itemprop="url">图像中文描述</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-12T17:26:01+08:00">
-                2019-04-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>图像中文描述问题融合了计算机视觉与自然语言处理两个方向，对图片输出一句话的描述。<br>描述句子要求符合自然语言习惯，点明图像中的重要信息，涵盖主要人物、场景、动作等内容。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/04/12/图像中文描述/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ji Hongxu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hugh's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/15/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-15T16:34:09+08:00">
-                2019-03-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/15/hello-world/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -980,6 +497,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -1000,8 +521,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1053,6 +583,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基于Bert的低俗内容过滤"><span class="nav-number">1.</span> <span class="nav-text">基于Bert的低俗内容过滤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-项目简介"><span class="nav-number">1.1.</span> <span class="nav-text">1.项目简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-运行环境"><span class="nav-number">1.2.</span> <span class="nav-text">2.运行环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-准备数据"><span class="nav-number">1.3.</span> <span class="nav-text">3.准备数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-模型训练及模型服务导出"><span class="nav-number">1.4.</span> <span class="nav-text">5.模型训练及模型服务导出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-预测及结果评估"><span class="nav-number">1.5.</span> <span class="nav-text">6.预测及结果评估</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-模型服务部署"><span class="nav-number">1.6.</span> <span class="nav-text">7.模型服务部署</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1193,6 +739,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
